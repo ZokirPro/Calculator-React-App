@@ -67,18 +67,21 @@ export default class Calculator extends Component {
                 
                     let res=0
                     const number=this.state.num1;
-                    operator==="+/-" ?res=-number:res=math.sqrt(number);
+                   // console.log(number,-number)
+                    operator==="+/-" ?res=-(parseFloat(number)):res=math.sqrt(number);
                     res=this.isInt(res)? res:res.toString().length>10?res.toFixed(10):res.toString()
                     if(!this.state.hasBinOperator){
                         
                         this.setState({
                             text:res.toString(),
-                            operator:""
+                            operator:"",
+                            num1:res.toString()
                         })
                     }
                     else{
                         this.setState({
-                            text:operator==="+/-"?this.state.text.replace(this.state.num1.toString(),"("+res+")"):this.state.text.replace(this.state.num1.toString(),res)
+                            text:operator==="+/-"?this.state.text.replace(this.state.num1.toString(),"("+res+")"):this.state.text.replace(this.state.num1.toString(),res),
+                            num1:res.toString()
                         })
                     }
             }   
@@ -106,7 +109,7 @@ export default class Calculator extends Component {
                 alert("Overflow.Too Big!!!")
             }
             else{
-                console.log(res)
+               // console.log(res)
                 this.setState({
                 text:this.isInt(res)? res:res.toString().length>10?res.toFixed(10):res.toString(),
                 num1:"0",
